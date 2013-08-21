@@ -1,0 +1,16 @@
+{
+  "name": "angular-json-editor",
+  "version": "0.0.1",
+  "private": true,
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-watch": "~0.3.1",
+    "grunt-karma": "~0.4.4",
+    "karma-requirejs": "0.0.3",
+    "karma": "~0.9.6",
+    "karma-jasmine": "0.0.3",
+    "uglify-js": "~2.3.6",
+    "grunt-contrib-uglify": "~0.2.2",
+    "grunt-cli": "~0.1.9"
+  }
+}
