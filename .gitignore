@@ -1,0 +1,25 @@
+#********** Intellij template**********
+
+*.iml
+*.ipr
+*.iws
+.idea/
+
+#********** Node template**********
+
+node_modules
+lib-cov
+*.seed
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+
+#********** Bower **********
+bower_components
+
+test_out/
+.nvm/
+libpeerconnection.log
