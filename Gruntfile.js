@@ -6,9 +6,9 @@ module.exports = function (grunt) {
             }
         },
         uglify: {
-            'angular-toggle': {
-                src: ['directives/angular-toggle.js'],
-                dest: 'directives/angular-toggle.min.js'
+            'angular-json-editor': {
+                src: ['directives/angular-json-editor.js'],
+                dest: 'directives/angular-json-editor.min.js'
             }
         }
     });
