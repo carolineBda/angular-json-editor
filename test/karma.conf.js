@@ -16,7 +16,7 @@ singleRun = true;
 
 browsers = ['PhantomJS'];
 
-reporters = ['dots', 'junit'];
+reporters = ['dots'];
 
 junitReporter = {
     outputFile: 'test_out/unit.xml',
