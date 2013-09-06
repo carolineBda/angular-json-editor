@@ -44,8 +44,13 @@ angular.module('angularJsonEditorDirectives', [])
                     content += renderLabel(scope.objectType) + '<json-editor content="value[key]"></json-editor>';
 
                 } else {
-                    var size = (currentValue.length > 300) ? 'large' : 'small';
-                    content += '<label>{{key}}<input type="text" name="{{key}}" class="' + size + '" ng-model="value[key]" /></label> ';
+                    var large = currentValue.length > 100;
+
+                    if (large) {
+                        content += '<label>{{key}}<textarea class="large" ng-model="value[key]"></textarea></label> ';
+                      } else {
+                        content += '<label>{{key}}<input type="text" name="{{key}}" class="small" ng-model="value[key]" /></label> ';
+                    }
                 }
 
                 element.append(content);
