@@ -14,3 +14,14 @@ Add to your project angular-json-editor [source](https://github.com/carolineBda/
 Include the json-editor directives as a dependency on your angular module
 
     angular.module("myapp", ["angularJsonEditorDirectives"]);
+
+Demo
+
+Checkout source code, update dependencies and run the app 
+
+    git clone https://github.com/carolineBda/angular-json-editor 
+    cd angular-json-editor 
+    npm install 
+    ./demo/scripts/web-server.js
+
+Then browse [http://localhost:8000/demo/index.html](http://localhost:8000/demo/index.html)
