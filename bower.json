@@ -1,0 +1,9 @@
+{
+  "name": "angular-json-editor",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "angular-ui-ace": "~0.0.4",
+    "ace": "~1.1.1"
+  }
+}

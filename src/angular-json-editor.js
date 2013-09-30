@@ -2,7 +2,7 @@
 
 angular.module('angularJsonEditor', [])
 
-   .factory('jsonService', [function () {
+    .factory('jsonService', [function () {
 
         return {
             getValue: function (val) {
@@ -69,7 +69,8 @@ angular.module('angularJsonEditor', [])
                 }
 
                 element.append(content);
-                $compile(element.contents())(scope)
+                $compile(element.contents())(scope);
+
             }
         }
     }])
