@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp',['angularJsonEditorDirectives']);
+var myApp = angular.module('myApp',['angularJsonEditor']);
 
 myApp.controller('MyCtrl', function($scope) {
     $scope.content = {

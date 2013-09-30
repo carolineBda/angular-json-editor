@@ -1,6 +1,19 @@
 'use strict';
 
-angular.module('angularJsonEditorDirectives', [])
+angular.module('angularJsonEditor', [])
+
+   .factory('jsonService', [function () {
+
+        return {
+            getValue: function (val) {
+                try {
+                    return JSON.parse(val);
+                } catch (e) {
+                    return val;
+                }
+            }
+        };
+    }])
 
     .directive('jsonEditor', function () {
         return {
@@ -38,10 +51,12 @@ angular.module('angularJsonEditorDirectives', [])
                 if (angular.isArray(currentValue)) {
 
                     content += renderLabel(scope.objectType) + '<json-editor display-type="array" content="value[key]"></json-editor>';
+                    content += '<new-leaf parent="value[key]"></new-leaf>';
 
                 } else if (angular.isObject(currentValue)) {
 
                     content += renderLabel(scope.objectType) + '<json-editor content="value[key]"></json-editor>';
+                    content += '<new-property parent="value[key]"></new-property>';
 
                 } else {
                     var large = currentValue.length > 100;
@@ -55,6 +70,38 @@ angular.module('angularJsonEditorDirectives', [])
 
                 element.append(content);
                 $compile(element.contents())(scope)
+            }
+        }
+    }])
+    .directive('newLeaf', ['jsonService', function (jsonService) {
+        return {
+            restrict: "E",
+            replace: true,
+            scope: {
+                parent: '='
+            },
+            template: '<ul class="tree"><li><input ng-model="propertyValue" type="text" class="small" /><button ng-click="addProperty()" title="Add">+</button></li></ul>',
+            link: function(scope) {
+                scope.addProperty = function() {
+                    scope.parent.push( jsonService.getValue(scope.propertyValue) );
+                };
+
+            }
+        }
+    }])
+    .directive('newProperty', ['jsonService', function (jsonService) {
+        return {
+            restrict: "E",
+            replace: true,
+            scope: {
+                parent: '='
+            },
+            template: '<ul class="tree"><li><input ng-model="propertyKey" type="text" class="small" />: <input ng-model="propertyValue" type="text" class="small" /><button ng-click="addProperty()" title="Add">+</button></li></ul>',
+            link: function(scope) {
+                scope.addProperty = function() {
+                    scope.parent[scope.propertyKey] = jsonService.getValue(scope.propertyValue);
+                };
+
             }
         }
     }]);

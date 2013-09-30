@@ -4,7 +4,7 @@ describe('Angular Toggle', function() {
 
     beforeEach(function() {
 
-        module('angularJsonEditorDirectives');
+        module('angularJsonEditor');
 
         inject(function(_$rootScope_) {
             $rootScope = _$rootScope_;

@@ -10,7 +10,7 @@ module.exports = function(config) {
             'lib/angular/angular.min.js',
             'test/lib/*.js',
 
-            'directives/angular-json-editor.js',
+            'src/angular-json-editor.js',
             'test/angular-json-editor.spec.js'
         ],
 
