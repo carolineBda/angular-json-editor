@@ -80,7 +80,7 @@ angular.module('angularJsonEditor', [])
             scope: {
                 parent: '='
             },
-            template: '<ul class="tree"><li><input ng-model="propertyValue" type="text" class="small" /><button ng-click="addProperty()" title="Add">+</button></li></ul>',
+            template: '<span><input ng-model="propertyValue" type="text" class="small" /><button ng-click="addProperty()" title="Add">+</button></span>',
             link: function(scope) {
                 scope.addProperty = function() {
                     scope.parent.push( jsonService.getValue(scope.propertyValue) );
@@ -96,7 +96,7 @@ angular.module('angularJsonEditor', [])
             scope: {
                 parent: '='
             },
-            template: '<ul class="tree"><li><input ng-model="propertyKey" type="text" class="small" />: <input ng-model="propertyValue" type="text" class="small" /><button ng-click="addProperty()" title="Add">+</button></li></ul>',
+            template: '<span><input ng-model="propertyKey" type="text" class="small" />: <input ng-model="propertyValue" type="text" class="small" /><button ng-click="addProperty()" title="Add">+</button></span>',
             link: function(scope) {
                 scope.addProperty = function() {
                     scope.parent[scope.propertyKey] = jsonService.getValue(scope.propertyValue);
