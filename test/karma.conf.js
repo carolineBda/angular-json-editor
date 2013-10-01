@@ -14,7 +14,7 @@ files = [
 autoWatch = true;
 singleRun = true;
 
-browsers = ['PhantomJS'];
+browsers = ['Chrome'];
 
 reporters = ['dots'];
 

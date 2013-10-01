@@ -1,4 +1,4 @@
-describe('Angular Toggle', function() {
+describe('Angular JSON editor', function() {
 
     var element, $rootScope;
 
@@ -11,9 +11,9 @@ describe('Angular Toggle', function() {
         });
     });
 
-    describe('toggle directive element', function() {
+    describe('user is able to edit json object', function() {
 
-        it('directive should create a textarea with the value string', function() {
+        it('directive should create a input with the value string', function() {
 
             given(function(){
                 $rootScope.json = { myAttribute: 'some value' };
@@ -25,11 +25,11 @@ describe('Angular Toggle', function() {
 
             then(function(){
                 expect(element.find('label').text()).toEqual('myAttribute');
-                expect(element.find('textarea').val()).toEqual('some value');
+                expect(element.find('input').val()).toEqual('some value');
             });
         });
 
-        it('directive should create a textarea with the empty string', function() {
+        it('directive should create a input with the empty string', function() {
 
             given(function(){
                 $rootScope.json = { myAttribute: '' };
@@ -41,7 +41,7 @@ describe('Angular Toggle', function() {
 
             then(function(){
                 expect(element.find('label').text()).toEqual('myAttribute');
-                expect(element.find('textarea').val()).toEqual('');
+                expect(element.find('input').val()).toEqual('');
             });
         });
 
@@ -57,12 +57,12 @@ describe('Angular Toggle', function() {
 
             then(function(){
                 expect(element.find('label').eq(0).text()).toEqual('firstAttribute');
-                expect(element.find('textarea').eq(0).val()).toEqual('some first value');
+                expect(element.find('input').eq(0).val()).toEqual('some first value');
             });
 
             and(function(){
                 expect(element.find('label').eq(1).text()).toEqual('secondAttribute');
-                expect(element.find('textarea').eq(1).val()).toEqual('some second value');
+                expect(element.find('input').eq(1).val()).toEqual('some second value');
             });
         });
 
@@ -77,10 +77,31 @@ describe('Angular Toggle', function() {
             });
 
             then(function(){
+                expect(element.find('span').eq(0).text()).toEqual('attribute');
+                expect(element.find('input').eq(0).val()).toEqual('un');
+                expect(element.find('label').eq(0).text()).toEqual('0');
+                expect(element.find('input').eq(1).val()).toEqual('deux');
+                expect(element.find('label').eq(1).text()).toEqual('1');
+                expect(element.find('input').eq(2).val()).toEqual('trois');
+                expect(element.find('label').eq(2).text()).toEqual('2');
+            });
+        });
+
+        it('json editor render textarea when value is more than 100 characters', function() {
+
+            const longString = 'More than 100 characters! More than 100 characters! More than 100 characters! More than 100 characters! More than 100 characters! More than 100 characters! More than 100 characters! More than 100 characters! More than 100 characters! More than 100 characters! More than 100 characters! More than 100 characters! ';
+
+            given(function(){
+                $rootScope.json = { attribute: longString };
+            });
+
+            when(function() {
+                element = compileDirective('<json-editor content="json"></json-editor>');
+            });
+
+            then(function(){
                 expect(element.find('label').eq(0).text()).toEqual('attribute');
-                expect(element.find('textarea').eq(0).val()).toEqual('un');
-                expect(element.find('textarea').eq(1).val()).toEqual('deux');
-                expect(element.find('textarea').eq(2).val()).toEqual('trois');
+                expect(element.find('textarea').eq(0).val()).toEqual(longString);
             });
         });
 
@@ -96,21 +117,21 @@ describe('Angular Toggle', function() {
 
             then(function(){
                 expect(element.find('label').eq(0).text()).toEqual('firstAttribute');
-                expect(element.find('textarea').eq(0).val()).toEqual('some first value');
+                expect(element.find('input').eq(0).val()).toEqual('some first value');
             });
 
             and(function(){
-                expect(element.find('label').eq(1).text()).toEqual('secondAttribute');
+                expect(element.find('span').eq(0).text()).toEqual('secondAttribute');
 
-                expect(element.find('textarea').eq(1).val()).toEqual('1');
-                expect(element.find('textarea').eq(2).val()).toEqual('2');
-                expect(element.find('textarea').eq(3).val()).toEqual('3');
+                expect(element.find('input').eq(1).val()).toEqual('1');
+                expect(element.find('input').eq(2).val()).toEqual('2');
+                expect(element.find('input').eq(3).val()).toEqual('3');
             });
 
             and(function(){
-                expect(element.find('label').eq(2).text()).toEqual('thirdAttribute');
-                expect(element.find('label').eq(3).text()).toEqual('iAm');
-                expect(element.find('textarea').eq(4).val()).toEqual('an object');
+                expect(element.find('span').eq(1).text()).toEqual('thirdAttribute');
+                expect(element.find('label').eq(4).text()).toEqual('iAm');
+                expect(element.find('input').eq(5).val()).toEqual('an object');
             });
         });
     });
