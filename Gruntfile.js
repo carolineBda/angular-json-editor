@@ -7,8 +7,8 @@ module.exports = function (grunt) {
         },
         uglify: {
             'angular-json-editor': {
-                src: ['directives/angular-json-editor.js'],
-                dest: 'directives/angular-json-editor.min.js'
+                src: ['src/angular-json-editor.js'],
+                dest: 'src/angular-json-editor.min.js'
             }
         }
     });

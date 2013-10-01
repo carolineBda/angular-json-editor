@@ -7,14 +7,14 @@ files = [
     'lib/angular/angular.min.js',
     'test/lib/*.js',
 
-    'directives/angular-json-editor.js',
+    'src/angular-json-editor.js',
     'test/angular-json-editor.spec.js'
 ];
 
 autoWatch = true;
 singleRun = true;
 
-browsers = ['PhantomJS'];
+browsers = ['Chrome'];
 
 reporters = ['dots'];
 
