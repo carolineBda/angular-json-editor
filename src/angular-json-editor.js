@@ -59,7 +59,7 @@ angular.module('angularJsonEditor', [])
                     content += '<new-property parent="value[key]"></new-property>';
 
                 } else {
-                    var large = currentValue.length > 100;
+                    var large = currentValue && currentValue.length > 100;
 
                     if (large) {
                         content += '<label>{{key}}<textarea class="large" ng-model="value[key]"></textarea></label> ';

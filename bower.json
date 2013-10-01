@@ -1,0 +1,7 @@
+{
+  "name": "angular-json-editor",
+  "dependencies": {},
+  "devDependencies": {
+    "angular-scenario": "~1.0.8"
+  }
+}
