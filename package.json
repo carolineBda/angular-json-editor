@@ -12,5 +12,8 @@
     "grunt-contrib-uglify": "~0.2.2",
     "grunt-cli": "~0.1.9",
     "bower": "~1.2.7"
+  },
+  "scripts":{
+    "start": "node ./demo/scripts/web-server.js"
   }
 }

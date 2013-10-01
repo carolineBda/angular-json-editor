@@ -62,14 +62,15 @@ angular.module('angularJsonEditor', [])
                     var large = currentValue && currentValue.length > 100;
 
                     if (large) {
-                        content += '<label>{{key}}<textarea class="large" ng-model="value[key]"></textarea></label> ';
+                        content += '<label>{{key}}<div class="large editor" ui-ace="{mode: \'html\'}" ng-model="value[key]"></div></label> ';
                       } else {
                         content += '<label>{{key}}<input type="text" name="{{key}}" class="small" ng-model="value[key]" /></label> ';
                     }
                 }
 
                 element.append(content);
-                $compile(element.contents())(scope)
+                $compile(element.contents())(scope);
+
             }
         }
     }])

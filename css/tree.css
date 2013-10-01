@@ -36,3 +36,7 @@ li > span + .tree {
 .tree div {
     margin-bottom: 10px;
 }
+
+.ace_editor {
+    height:100px;
+}
