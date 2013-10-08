@@ -105,7 +105,7 @@ describe('Angular JSON editor', function() {
 
             then(function(){
                 expect(element.find('label').eq(0).text()).toEqual('attribute');
-                expect(element.find('textarea').eq(0).val()).toEqual(longString);
+                expect(element.find('.ace_text-layer').text()).toBeDefined();
             });
         });
 
@@ -204,5 +204,58 @@ describe('Angular JSON editor', function() {
             expect($rootScope.json).toEqual({firstAttribute: { table : [1, 2, 3]}});
         });
     });
+
+    it('json editor (-) modifies ui and model', function() {
+        given(function() {
+            $rootScope.json = {firstAttribute: {src: "www.nowtv.com"}};
+        });
+
+        when(function() {
+            element = compileDirective('<json-editor content="json"></json-editor>');
+        });
+
+        then(function() {
+            expect(element.find('span').eq(0).text()).toEqual('firstAttribute');
+            expect(element.find('label').eq(0).text()).toEqual('src');
+            expect(element.find('input').eq(0).val()).toEqual('www.nowtv.com');
+            expect(element.find('button').eq(0).text()).toEqual('-');
+        });
+
+        when(function() {
+            browserTrigger(element.find('button').eq(0), 'click');
+        });
+
+        then(function() {
+            expect(element.find('input').eq(0).val()).toEqual('');
+            expect($rootScope.json).toEqual({firstAttribute: { } });
+        });
+    });
+
+    it('json editor (-) modifies ui and model with array', function() {
+        given(function() {
+            $rootScope.json = {firstAttribute: [1, 2, 3] };
+        });
+
+        when(function() {
+            element = compileDirective('<json-editor content="json"></json-editor>');
+        });
+
+        then(function() {
+            expect(element.find('span').eq(0).text()).toEqual('firstAttribute');
+            expect(element.find('button').eq(0).text()).toEqual('-');
+            expect(element.find('button').eq(1).text()).toEqual('-');
+            expect(element.find('button').eq(2).text()).toEqual('-');
+        });
+
+        when(function() {
+            browserTrigger(element.find('button').eq(0), 'click');
+        });
+
+        then(function() {
+            expect($rootScope.json).toEqual({firstAttribute: [2, 3 ] });
+        });
+    });
+
+
 
 });

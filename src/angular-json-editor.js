@@ -66,6 +66,8 @@ angular.module('angularJsonEditor', [])
                       } else {
                         content += '<label>{{key}}<input type="text" name="{{key}}" class="small" ng-model="value[key]" /></label> ';
                     }
+                    content += '<remove-leaf parent="value" child="key"></remove-leaf>';
+
                 }
 
                 element.append(content);
@@ -81,7 +83,7 @@ angular.module('angularJsonEditor', [])
             scope: {
                 parent: '='
             },
-            template: '<div><input ng-model="propertyValue" type="text" class="small" /><button ng-click="addProperty()" title="Add">+</button></div>',
+            template: '<div class="newLeaf"><input ng-model="propertyValue" type="text" class="small" /><button ng-click="addProperty()" title="Add">+</button></div>',
             link: function(scope) {
                 scope.addProperty = function() {
                     scope.parent.push( jsonService.getValue(scope.propertyValue) );
@@ -97,7 +99,7 @@ angular.module('angularJsonEditor', [])
             scope: {
                 parent: '='
             },
-            template: '<div><input ng-model="propertyKey" type="text" class="small" />: <input ng-model="propertyValue" type="text" class="small" /><button ng-click="addProperty()" title="Add">+</button></div>',
+            template: '<div class="newLeaf"><input ng-model="propertyKey" type="text" class="small" />: <input ng-model="propertyValue" type="text" class="small" /><button ng-click="addProperty()" title="Add">+</button></div>',
             link: function(scope) {
                 scope.addProperty = function() {
                     scope.parent[scope.propertyKey] = jsonService.getValue(scope.propertyValue);
@@ -105,4 +107,25 @@ angular.module('angularJsonEditor', [])
 
             }
         }
-    }]);
+    }])
+    .directive('removeLeaf', function () {
+        return {
+            restrict: "E",
+            replace: true,
+            scope: {
+                parent: '=',
+                child: '='
+            },
+            template: '<button ng-click="removeProperty()" title="Remove">-</button>',
+            link: function(scope) {
+                scope.removeProperty = function() {
+                    if(angular.isArray(scope.parent)) {
+                        scope.parent.splice(scope.parent.indexOf(scope.parent[scope.child]), 1);
+                    } else {
+                        delete scope.parent[scope.child];
+                    }
+                };
+
+            }
+        }
+    });
