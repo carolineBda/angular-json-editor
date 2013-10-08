@@ -66,6 +66,8 @@ angular.module('angularJsonEditor', [])
                       } else {
                         content += '<label>{{key}}<input type="text" name="{{key}}" class="small" ng-model="value[key]" /></label> ';
                     }
+                    content += '<remove-leaf parent="value" child="key"></remove-leaf>';
+
                 }
 
                 element.append(content);
@@ -105,4 +107,25 @@ angular.module('angularJsonEditor', [])
 
             }
         }
-    }]);
+    }])
+    .directive('removeLeaf', function () {
+        return {
+            restrict: "E",
+            replace: true,
+            scope: {
+                parent: '=',
+                child: '='
+            },
+            template: '<button ng-click="removeProperty()" title="Remove">-</button>',
+            link: function(scope) {
+                scope.removeProperty = function() {
+                    if(angular.isArray(scope.parent)) {
+                        scope.parent.splice(scope.parent.indexOf(scope.parent[scope.child]), 1);
+                    } else {
+                        delete scope.parent[scope.child];
+                    }
+                };
+
+            }
+        }
+    });
