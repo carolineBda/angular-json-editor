@@ -1,24 +1,34 @@
-basePath = '../';
+'use strict';
 
-files = [
-    JASMINE,
-    JASMINE_ADAPTER,
+module.exports = function(config) {
+    config.set({
 
-    'lib/angular/angular.min.js',
-    'test/lib/*.js',
+        basePath: '../',
 
-    'src/angular-json-editor.js',
-    'test/angular-json-editor.spec.js'
-];
+        files: [
+    
+            'bower_components/angular/angular.min.js',
+            'node_modules/angular-mocks/angular-mocks.js',
+            'test/lib/*.js',
 
-autoWatch = true;
-singleRun = true;
-
-browsers = ['Chrome'];
-
-reporters = ['dots'];
-
-junitReporter = {
-    outputFile: 'test_out/unit.xml',
-    suite: 'unit'
+            'src/angular-json-editor.js',
+            'test/angular-json-editor.spec.js'
+        ],
+    
+        autoWatch: true,
+        singleRun: true,
+        plugins: [
+            'karma-chrome-launcher',
+            'karma-jasmine'
+        ],
+        browsers: ['Chrome'],
+    
+        reporters: ['dots'],
+    
+        frameworks: ['jasmine'],
+        junitReporter: {
+            outputFile: 'test_out/unit.xml',
+            suite: 'unit'
+        }
+    });
 };

@@ -1,21 +1,27 @@
-Namespace.use('jasmine.grammar.GWT.*');
+'use strict';
 
-var mockModule = function(name, value) {
+var compileDirective = function(el) {
 
-        module(function($provide) {
-            $provide.value(name, value);
-        });
-    },
-    compileDirective = function(el) {
+    var compiledEl;
 
-        var compiledEl;
+    inject(function($rootScope, $compile) {
 
-        inject(function($rootScope, $compile) {
+        compiledEl = $compile(angular.element(el))($rootScope);
 
-            compiledEl = $compile(angular.element(el))($rootScope);
+        $rootScope.$digest();
+    });
 
-            $rootScope.$digest();
-        });
+    return compiledEl;
+};
 
-        return compiledEl;
-    };
+var browserTrigger = function(element, eventType) {
+    element = element[0];
+    if (document.createEvent) {
+        var event = document.createEvent('MouseEvents');
+        event.initMouseEvent(eventType, true, true, window, 0, 0, 0, 0, 0, false, false,
+            false, false, 0, element);
+        element.dispatchEvent(event);
+    } else {
+        element.fireEvent('on' + eventType);
+    }
+};
