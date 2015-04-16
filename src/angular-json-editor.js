@@ -62,8 +62,8 @@ angular.module('angularJsonEditor', [])
                     var large = currentValue && currentValue.length > 100;
 
                     if (large) {
-                        content += '<label>{{key}}<div class="large editor" ui-ace="{mode: \'html\'}" ng-model="value[key]"></div></label> ';
-                      } else {
+                        content += '<label>{{key}}<div class="large editor" ui-ace="{mode: \'text\'}" ng-model="value[key]"></div></label> ';
+                    } else {
                         content += '<label>{{key}}<input type="text" name="{{key}}" class="small" ng-model="value[key]" /></label> ';
                     }
                     content += '<remove-leaf parent="value" child="key"></remove-leaf>';
