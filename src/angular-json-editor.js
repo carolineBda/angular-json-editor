@@ -17,19 +17,19 @@ angular.module('angularJsonEditor', [])
 
     .directive('jsonEditor', function () {
         return {
-            restrict: "E",
+            restrict: 'E',
             replace: true,
             scope: {
                 content: '=',
                 displayType: '@'
             },
             template: '<ul class="tree"><object-editor ng-repeat="(k, v) in content track by $index" object-type="displayType" key="k" value="content"></object-editor></ul>'
-        }
+        };
     })
 
     .directive('objectEditor', ['$compile', function ($compile) {
         return {
-            restrict: "E",
+            restrict: 'E',
             replace: true,
             scope: {
                 key: '=',
@@ -74,11 +74,11 @@ angular.module('angularJsonEditor', [])
                 $compile(element.contents())(scope);
 
             }
-        }
+        };
     }])
     .directive('newLeaf', ['jsonService', function (jsonService) {
         return {
-            restrict: "E",
+            restrict: 'E',
             replace: true,
             scope: {
                 parent: '='
@@ -90,11 +90,11 @@ angular.module('angularJsonEditor', [])
                 };
 
             }
-        }
+        };
     }])
     .directive('newProperty', ['jsonService', function (jsonService) {
         return {
-            restrict: "E",
+            restrict: 'E',
             replace: true,
             scope: {
                 parent: '='
@@ -106,11 +106,11 @@ angular.module('angularJsonEditor', [])
                 };
 
             }
-        }
+        };
     }])
     .directive('removeLeaf', function () {
         return {
-            restrict: "E",
+            restrict: 'E',
             replace: true,
             scope: {
                 parent: '=',
@@ -127,5 +127,5 @@ angular.module('angularJsonEditor', [])
                 };
 
             }
-        }
+        };
     });

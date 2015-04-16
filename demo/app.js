@@ -11,12 +11,12 @@ myApp.controller('MyCtrl', function($scope) {
                     'after Paris (12.1 million), Lyon (2.1 million), and Marseille (1.7 million).',
                 phoneNumbers: [
                     {
-                        type: "home",
-                        number: "123 456 789"
+                        type: 'home',
+                        number: '123 456 789'
                     },
                     {
-                        type: "fax",
-                        number: "987 654 321"
+                        type: 'fax',
+                        number: '987 654 321'
                     }
                 ]
     };

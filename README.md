@@ -27,7 +27,7 @@ Checkout source code, update dependencies and run the app
 
     git clone https://github.com/carolineBda/angular-json-editor 
     cd angular-json-editor 
-    npm install 
+    bower install
     npm start
 
 Then browse [http://localhost:8000/demo/index.html](http://localhost:8000/demo/index.html)
