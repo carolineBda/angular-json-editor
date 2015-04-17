@@ -3,6 +3,7 @@
 describe('Angular JSON editor', function () {
 
     var element, $rootScope, changeInputValue;
+    var markup = '<json-editor content="json"></json-editor>';
 
     beforeEach(function () {
 
@@ -18,13 +19,13 @@ describe('Angular JSON editor', function () {
         });
     });
 
-    describe('user is able to edit json object', function () {
+    describe('json editor present json object', function () {
 
         it('directive should create a input with the value string', function () {
 
             $rootScope.json = {myAttribute: 'some value'};
 
-            element = compileDirective('<json-editor content="json"></json-editor>');
+            element = compileDirective(markup);
 
             expect(element.find('label').text()).toEqual('myAttribute');
             expect(element.find('input').val()).toEqual('some value');
@@ -34,7 +35,7 @@ describe('Angular JSON editor', function () {
 
             $rootScope.json = {myAttribute: ''};
 
-            element = compileDirective('<json-editor content="json"></json-editor>');
+            element = compileDirective(markup);
 
             expect(element.find('label').text()).toEqual('myAttribute');
             expect(element.find('input').val()).toEqual('');
@@ -45,7 +46,7 @@ describe('Angular JSON editor', function () {
 
             $rootScope.json = {firstAttribute: 'some first value', secondAttribute: 'some second value'};
 
-            element = compileDirective('<json-editor content="json"></json-editor>');
+            element = compileDirective(markup);
 
             expect(element.find('label').eq(0).text()).toEqual('firstAttribute');
             expect(element.find('input').eq(0).val()).toEqual('some first value');
@@ -58,7 +59,7 @@ describe('Angular JSON editor', function () {
 
             $rootScope.json = {attribute: ['un', 'deux', 'trois']};
 
-            element = compileDirective('<json-editor content="json"></json-editor>');
+            element = compileDirective(markup);
 
             expect(element.find('span').eq(0).text()).toEqual('attribute');
             expect(element.find('input').eq(0).val()).toEqual('un');
@@ -75,7 +76,7 @@ describe('Angular JSON editor', function () {
 
             $rootScope.json = {attribute: longString};
 
-            element = compileDirective('<json-editor content="json"></json-editor>');
+            element = compileDirective(markup);
 
             expect(element.find('label').eq(0).text()).toEqual('attribute');
             expect(element.find('.ace_text-layer').text()).toBeDefined();
@@ -90,7 +91,7 @@ describe('Angular JSON editor', function () {
             };
 
 
-            element = compileDirective('<json-editor content="json"></json-editor>');
+            element = compileDirective(markup);
 
             expect(element.find('label').eq(0).text()).toEqual('firstAttribute');
             expect(element.find('input').eq(0).val()).toEqual('some first value');
@@ -108,120 +109,117 @@ describe('Angular JSON editor', function () {
         });
     });
 
-    it('json editor (+) modifies ui and model with an object', function () {
+    describe('user is able to edit json object', function () {
 
-        $rootScope.json = {firstAttribute: []};
+        it('json editor (+) modifies ui and model with an object', function () {
 
-        element = compileDirective('<json-editor content="json"></json-editor>');
+            $rootScope.json = {firstAttribute: []};
 
-        expect(element.find('span').eq(0).text()).toEqual('firstAttribute');
-        expect(element.find('input').eq(0).val()).toEqual('');
-        expect(element.find('button').eq(0).attr('title')).toEqual('Add');
+            element = compileDirective(markup);
 
-        changeInputValue(element.find('input').eq(0), '{}');
-        browserTrigger(element.find('button').eq(0), 'click');
+            expect(element.find('span').eq(0).text()).toEqual('firstAttribute');
+            expect(element.find('input').eq(0).val()).toEqual('');
+            expect(element.find('button').eq(0).attr('title')).toEqual('Add');
 
-        expect(element.find('span').eq(1).text()).toEqual('0');
-        expect(element.find('input').eq(0).val()).toEqual('');
-        expect(element.find('input').eq(1).val()).toEqual('');
-        expect($rootScope.json).toEqual({firstAttribute: [{}]});
+            changeInputValue(element.find('input').eq(0), '{}');
+            browserTrigger(element.find('button').eq(0), 'click');
 
+            expect(element.find('input').eq(0).val()).toEqual('');
+            expect(element.find('input').eq(1).val()).toEqual('');
+            expect($rootScope.json).toEqual({firstAttribute: [{}]});
+
+        });
+
+        it('json editor (+) modifies default empty value to object', function () {
+
+            $rootScope.json = {firstAttribute: []};
+
+            element = compileDirective(markup);
+
+            changeInputValue(element.find('input').eq(0), '');
+            browserTrigger(element.find('button').eq(0), 'click');
+
+            expect(element.find('input').eq(0).val()).toEqual('');
+            expect(element.find('input').eq(1).val()).toEqual('');
+            expect($rootScope.json).toEqual({firstAttribute: [{}]});
+
+        });
+
+        it('json editor (+) modifies ui and model with a property', function () {
+
+            $rootScope.json = {firstAttribute: {}};
+
+            element = compileDirective(markup);
+
+            expect(element.find('span').eq(0).text()).toEqual('firstAttribute');
+            expect(element.find('input').eq(0).val()).toEqual('');
+            expect(element.find('input').eq(1).val()).toEqual('');
+            expect(element.find('button').eq(0).attr('title')).toEqual('Add');
+
+            changeInputValue(element.find('input').eq(0), 'something');
+            changeInputValue(element.find('input').eq(1), 'other thing');
+            browserTrigger(element.find('button').eq(0), 'click');
+
+            expect(element.find('label').eq(0).text()).toEqual('something');
+            expect(element.find('input').eq(0).val()).toEqual('other thing');
+            expect(element.find('input').eq(1).val()).toEqual('something');
+            expect(element.find('input').eq(2).val()).toEqual('other thing');
+            expect($rootScope.json).toEqual({firstAttribute: {something: 'other thing'}});
+
+        });
+
+        it('json editor (+) modifies ui and model with a table', function () {
+
+            $rootScope.json = {firstAttribute: {}};
+
+            element = compileDirective(markup);
+            changeInputValue(element.find('input').eq(0), 'table');
+            changeInputValue(element.find('input').eq(1), '[1, 2, 3]');
+            browserTrigger(element.find('button').eq(0), 'click');
+
+            expect(element.find('span').eq(1).text()).toEqual('table');
+
+            expect(element.find('input').eq(0).val()).toEqual('1');
+            expect(element.find('input').eq(1).val()).toEqual('2');
+            expect(element.find('input').eq(2).val()).toEqual('3');
+            expect($rootScope.json).toEqual({firstAttribute: {table: [1, 2, 3]}});
+
+        });
+
+        it('json editor (-) modifies ui and model', function () {
+
+            $rootScope.json = {firstAttribute: {src: 'www.nowtv.com'}};
+
+            element = compileDirective(markup);
+
+            expect(element.find('span').eq(0).text()).toEqual('firstAttribute');
+            expect(element.find('label').eq(0).text()).toEqual('src');
+            expect(element.find('input').eq(0).val()).toEqual('www.nowtv.com');
+            expect(element.find('button').eq(0).attr('title')).toEqual('Remove');
+
+            browserTrigger(element.find('button').eq(0), 'click');
+
+            expect(element.find('input').eq(0).val()).toEqual('');
+            expect($rootScope.json).toEqual({firstAttribute: {}});
+
+        });
+
+        it('json editor (-) modifies ui and model with array', function () {
+
+            $rootScope.json = {firstAttribute: [1, 2, 3]};
+
+            element = compileDirective(markup);
+
+            expect(element.find('span').eq(0).text()).toEqual('firstAttribute');
+            expect(element.find('button').eq(0).attr('title')).toEqual('Remove');
+            expect(element.find('button').eq(1).attr('title')).toEqual('Remove');
+            expect(element.find('button').eq(2).attr('title')).toEqual('Remove');
+
+            browserTrigger(element.find('button').eq(0), 'click');
+
+            expect($rootScope.json).toEqual({firstAttribute: [2, 3]});
+
+        });
     });
-
-    it('json editor (+) modifies default empty value to object', function () {
-
-        $rootScope.json = {firstAttribute: []};
-
-        element = compileDirective('<json-editor content="json"></json-editor>');
-
-        changeInputValue(element.find('input').eq(0), '');
-        browserTrigger(element.find('button').eq(0), 'click');
-
-        expect(element.find('span').eq(1).text()).toEqual('0');
-        expect(element.find('input').eq(0).val()).toEqual('');
-        expect(element.find('input').eq(1).val()).toEqual('');
-        expect($rootScope.json).toEqual({firstAttribute: [{}]});
-
-    });
-
-    it('json editor (+) modifies ui and model with a property', function () {
-
-        $rootScope.json = {firstAttribute: {}};
-
-        element = compileDirective('<json-editor content="json"></json-editor>');
-
-        expect(element.find('span').eq(0).text()).toEqual('firstAttribute');
-        expect(element.find('input').eq(0).val()).toEqual('');
-        expect(element.find('input').eq(1).val()).toEqual('');
-        expect(element.find('button').eq(0).attr('title')).toEqual('Add');
-
-        changeInputValue(element.find('input').eq(0), 'something');
-        changeInputValue(element.find('input').eq(1), 'other thing');
-        browserTrigger(element.find('button').eq(0), 'click');
-
-        expect(element.find('label').eq(0).text()).toEqual('something');
-        expect(element.find('input').eq(0).val()).toEqual('other thing');
-        expect(element.find('input').eq(1).val()).toEqual('something');
-        expect(element.find('input').eq(2).val()).toEqual('other thing');
-        expect($rootScope.json).toEqual({firstAttribute: {something: 'other thing'}});
-
-    });
-
-    it('json editor (+) modifies ui and model with a table', function () {
-
-        $rootScope.json = {firstAttribute: {}};
-
-        element = compileDirective('<json-editor content="json"></json-editor>');
-        changeInputValue(element.find('input').eq(0), 'table');
-        changeInputValue(element.find('input').eq(1), '[1, 2, 3]');
-        browserTrigger(element.find('button').eq(0), 'click');
-
-        expect(element.find('span').eq(1).text()).toEqual('table');
-
-        expect(element.find('input').eq(0).val()).toEqual('1');
-        expect(element.find('input').eq(1).val()).toEqual('2');
-        expect(element.find('input').eq(2).val()).toEqual('3');
-        expect($rootScope.json).toEqual({firstAttribute: {table: [1, 2, 3]}});
-
-    });
-
-    it('json editor (-) modifies ui and model', function () {
-
-        $rootScope.json = {firstAttribute: {src: 'www.nowtv.com'}};
-
-
-        element = compileDirective('<json-editor content="json"></json-editor>');
-
-
-        expect(element.find('span').eq(0).text()).toEqual('firstAttribute');
-        expect(element.find('label').eq(0).text()).toEqual('src');
-        expect(element.find('input').eq(0).val()).toEqual('www.nowtv.com');
-        expect(element.find('button').eq(0).attr('title')).toEqual('Remove');
-
-        browserTrigger(element.find('button').eq(0), 'click');
-
-        expect(element.find('input').eq(0).val()).toEqual('');
-        expect($rootScope.json).toEqual({firstAttribute: {}});
-
-    });
-
-    it('json editor (-) modifies ui and model with array', function () {
-
-        $rootScope.json = {firstAttribute: [1, 2, 3]};
-
-
-        element = compileDirective('<json-editor content="json"></json-editor>');
-
-        expect(element.find('span').eq(0).text()).toEqual('firstAttribute');
-        expect(element.find('button').eq(0).attr('title')).toEqual('Remove');
-        expect(element.find('button').eq(1).attr('title')).toEqual('Remove');
-        expect(element.find('button').eq(2).attr('title')).toEqual('Remove');
-
-        browserTrigger(element.find('button').eq(0), 'click');
-
-        expect($rootScope.json).toEqual({firstAttribute: [2, 3]});
-
-    });
-
 
 });
