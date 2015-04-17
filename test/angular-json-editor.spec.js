@@ -117,7 +117,7 @@ describe('Angular JSON editor', function () {
         expect(element.find('span').eq(0).text()).toEqual('firstAttribute');
         expect(element.find('input').eq(0).val()).toEqual('');
         expect(element.find('input').eq(1).val()).toEqual('');
-        expect(element.find('button').eq(0).text()).toEqual('+');
+        expect(element.find('button').eq(0).attr('title')).toEqual('Add');
 
         changeInputValue(element.find('input').eq(0), 'something');
         changeInputValue(element.find('input').eq(1), 'other thing');
@@ -137,7 +137,7 @@ describe('Angular JSON editor', function () {
 
         element = compileDirective('<json-editor content="json"></json-editor>');
         changeInputValue(element.find('input').eq(0), 'table');
-        changeInputValue(element.find('input').eq(1), "[1, 2, 3]");
+        changeInputValue(element.find('input').eq(1), '[1, 2, 3]');
         browserTrigger(element.find('button').eq(0), 'click');
 
         expect(element.find('span').eq(1).text()).toEqual('table');
@@ -151,7 +151,7 @@ describe('Angular JSON editor', function () {
 
     it('json editor (-) modifies ui and model', function () {
 
-        $rootScope.json = {firstAttribute: {src: "www.nowtv.com"}};
+        $rootScope.json = {firstAttribute: {src: 'www.nowtv.com'}};
 
 
         element = compileDirective('<json-editor content="json"></json-editor>');
@@ -160,7 +160,7 @@ describe('Angular JSON editor', function () {
         expect(element.find('span').eq(0).text()).toEqual('firstAttribute');
         expect(element.find('label').eq(0).text()).toEqual('src');
         expect(element.find('input').eq(0).val()).toEqual('www.nowtv.com');
-        expect(element.find('button').eq(0).text()).toEqual('-');
+        expect(element.find('button').eq(0).attr('title')).toEqual('Remove');
 
         browserTrigger(element.find('button').eq(0), 'click');
 
@@ -177,9 +177,9 @@ describe('Angular JSON editor', function () {
         element = compileDirective('<json-editor content="json"></json-editor>');
 
         expect(element.find('span').eq(0).text()).toEqual('firstAttribute');
-        expect(element.find('button').eq(0).text()).toEqual('-');
-        expect(element.find('button').eq(1).text()).toEqual('-');
-        expect(element.find('button').eq(2).text()).toEqual('-');
+        expect(element.find('button').eq(0).attr('title')).toEqual('Remove');
+        expect(element.find('button').eq(1).attr('title')).toEqual('Remove');
+        expect(element.find('button').eq(2).attr('title')).toEqual('Remove');
 
         browserTrigger(element.find('button').eq(0), 'click');
 

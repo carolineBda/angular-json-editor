@@ -17,11 +17,15 @@ Note that content object is a json object added to the scope
 ##Installation
 Add to your project angular-json-editor [source](https://github.com/carolineBda/angular-json-editor/blob/master/src/angular-json-editor.min.js).
 
+    <link rel="stylesheet" href="./SOURCE_TO_LIB/angular-json-editor.css"/>
+    <script type="text/javascript" src="./SOURCE_TO_LIB/angular-json-editor.min.js"></script>
+
 Include the json-editor directives as a dependency on your angular module
 
     angular.module("myapp", ["angularJsonEditor"]);
 
-Demo
+Add
+##Demo
 
 Checkout source code, update dependencies and run the app 
 
