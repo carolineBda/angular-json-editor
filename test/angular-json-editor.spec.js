@@ -111,6 +111,26 @@ describe('Angular JSON editor', function () {
 
     describe('user is able to edit json object', function () {
 
+        it('top level object is editable', function () {
+
+            $rootScope.json = {hello:'ji'};
+
+            element = compileDirective(markup);
+
+            expect(element.find('input').eq(0).val()).toEqual('ji');
+            expect(element.find('button').eq(0).attr('title')).toEqual('Remove');
+
+            expect(element.find('input').eq(1).val()).toEqual('');
+            expect(element.find('input').eq(2).val()).toEqual('');
+            expect(element.find('button').eq(1).attr('title')).toEqual('Add');
+
+            changeInputValue(element.find('input').eq(1), 'bonjour');
+            changeInputValue(element.find('input').eq(2), 'jo');
+            browserTrigger(element.find('button').eq(1), 'click');
+
+            expect($rootScope.json).toEqual({hello:'ji', bonjour: 'jo'});
+        });
+
         it('json editor (+) modifies ui and model with an object', function () {
 
             $rootScope.json = {firstAttribute: []};
