@@ -4,13 +4,17 @@ angular.module('angularJsonEditor', [])
 
     .factory('jsonService', [function () {
 
+        var getValue = function (val) {
+            try {
+                return JSON.parse(val);
+            } catch (e) {
+                return val;
+            }
+        };
         return {
-            getValue: function (val) {
-                try {
-                    return JSON.parse(val);
-                } catch (e) {
-                    return val;
-                }
+            getValue: getValue,
+            getValueForObject: function(val) {
+                return val ? getValue(val) : {};
             }
         };
     }])
@@ -86,7 +90,7 @@ angular.module('angularJsonEditor', [])
             template: '<div class="newLeaf"><input ng-model="propertyValue" type="text" class="small" /><button ng-click="addProperty()" title="Add" alt="+"></button></div>',
             link: function(scope) {
                 scope.addProperty = function() {
-                    scope.parent.push( jsonService.getValue(scope.propertyValue) );
+                    scope.parent.push( jsonService.getValueForObject(scope.propertyValue) );
                 };
 
             }

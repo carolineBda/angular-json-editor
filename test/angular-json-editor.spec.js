@@ -108,6 +108,42 @@ describe('Angular JSON editor', function () {
         });
     });
 
+    it('json editor (+) modifies ui and model with an object', function () {
+
+        $rootScope.json = {firstAttribute: []};
+
+        element = compileDirective('<json-editor content="json"></json-editor>');
+
+        expect(element.find('span').eq(0).text()).toEqual('firstAttribute');
+        expect(element.find('input').eq(0).val()).toEqual('');
+        expect(element.find('button').eq(0).attr('title')).toEqual('Add');
+
+        changeInputValue(element.find('input').eq(0), '{}');
+        browserTrigger(element.find('button').eq(0), 'click');
+
+        expect(element.find('span').eq(1).text()).toEqual('0');
+        expect(element.find('input').eq(0).val()).toEqual('');
+        expect(element.find('input').eq(1).val()).toEqual('');
+        expect($rootScope.json).toEqual({firstAttribute: [{}]});
+
+    });
+
+    it('json editor (+) modifies default empty value to object', function () {
+
+        $rootScope.json = {firstAttribute: []};
+
+        element = compileDirective('<json-editor content="json"></json-editor>');
+
+        changeInputValue(element.find('input').eq(0), '');
+        browserTrigger(element.find('button').eq(0), 'click');
+
+        expect(element.find('span').eq(1).text()).toEqual('0');
+        expect(element.find('input').eq(0).val()).toEqual('');
+        expect(element.find('input').eq(1).val()).toEqual('');
+        expect($rootScope.json).toEqual({firstAttribute: [{}]});
+
+    });
+
     it('json editor (+) modifies ui and model with a property', function () {
 
         $rootScope.json = {firstAttribute: {}};
@@ -127,7 +163,7 @@ describe('Angular JSON editor', function () {
         expect(element.find('input').eq(0).val()).toEqual('other thing');
         expect(element.find('input').eq(1).val()).toEqual('something');
         expect(element.find('input').eq(2).val()).toEqual('other thing');
-        expect($rootScope.json).toEqual({firstAttribute: {something: "other thing"}});
+        expect($rootScope.json).toEqual({firstAttribute: {something: 'other thing'}});
 
     });
 
