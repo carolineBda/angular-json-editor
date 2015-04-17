@@ -1,0 +1,25 @@
+<html lang="en" ng-app="myApp">
+<head>
+    <link rel="stylesheet" href="lib/angular-json-editor.css"/>
+    <script type="text/javascript" src="/bower_components/ace-builds/src-min-noconflict/ace.js"></script>
+    <script type="text/javascript" src="/bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript" src="/bower_components/angular-ui-ace/ui-ace.min.js"></script>
+
+</head>
+<body>
+    <div>
+        <div ng-controller="MyCtrl">
+            <fieldset>
+                <json-editor content="content"></json-editor>
+                <label>JSON Object <pre>{{content | json}}</pre></label>
+            </fieldset>
+        </div>
+    </div>
+
+    <p>Demo of <a href="https://github.com/carolineBda/angular-json-editor">angular JSON editor</a> by Caroline</p>
+
+    <script type="text/javascript" src="lib/angular-json-editor.js"></script>
+    <script type="text/javascript" src="./app.js"></script>
+
+</body>
+</html>

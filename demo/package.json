@@ -1,0 +1,14 @@
+{
+  "name": "demo-app-for-angular-json-editor",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./server.js",
+    "dev": "nodemon ./server.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.12.3",
+    "express": "^4.12.3",
+    "method-override": "^2.3.2"
+  }
+}
