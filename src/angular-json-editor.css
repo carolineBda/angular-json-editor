@@ -17,7 +17,7 @@
 .tree label {
     float: left;
     width: 6em;
-    text-align: right;
+    text-align: left;
     margin-right: 0.5em;
 }
 

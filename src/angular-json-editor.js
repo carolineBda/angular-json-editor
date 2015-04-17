@@ -24,10 +24,9 @@ angular.module('angularJsonEditor', [])
             restrict: 'E',
             replace: true,
             scope: {
-                content: '=',
-                displayType: '@'
+                content: '='
             },
-            template: '<ul class="tree"><object-editor ng-repeat="(k, v) in content track by $index" object-type="displayType" key="k" value="content"></object-editor></ul>'
+            template: '<ul class="tree"><object-editor ng-repeat="(k, v) in content track by $index" key="k" value="content"></object-editor></ul>'
         };
     })
 
@@ -37,16 +36,15 @@ angular.module('angularJsonEditor', [])
             replace: true,
             scope: {
                 key: '=',
-                value: '=',
-                objectType: '='
+                value: '='
             },
 
             template: '<li></li>',
 
             link: function (scope, element) {
 
-                var renderLabel = function(type) {
-                        return (type === 'array') ? '<div class="branch">&nbsp;</div>' : '<span>{{key}}</span>'
+                var renderLabel = function() {
+                        return (angular.isArray(scope.value)) ? '<div class="branch">&nbsp;</div>' : '<span>{{key}}</span>';
                     },
 
                     content = '',
@@ -54,12 +52,12 @@ angular.module('angularJsonEditor', [])
 
                 if (angular.isArray(currentValue)) {
 
-                    content += renderLabel(scope.objectType) + '<json-editor display-type="array" content="value[key]"></json-editor>';
+                    content += renderLabel() + '<json-editor content="value[key]"></json-editor>';
                     content += '<new-leaf parent="value[key]"></new-leaf>';
 
                 } else if (angular.isObject(currentValue)) {
 
-                    content += renderLabel(scope.objectType) + '<json-editor content="value[key]"></json-editor>';
+                    content += renderLabel() + '<json-editor content="value[key]"></json-editor>';
                     content += '<new-property parent="value[key]"></new-property>';
 
                 } else {
