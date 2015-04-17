@@ -16,13 +16,14 @@
 
 .tree label {
     float: left;
-    width: 5em;
+    width: 6em;
     text-align: right;
     margin-right: 0.5em;
 }
 
 .tree input {
-    margin: 2px 15px;
+    width: 8em;
+    margin: 2px 5px;
 }
 
 .tree .branch {

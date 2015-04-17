@@ -27,7 +27,7 @@ angular.module('angularJsonEditor', [])
                 content: '=',
                 displayType: '@'
             },
-            template: '<ul class="tree"><object-editor ng-repeat="(k, v) in content track by $index" key="k" value="content"></object-editor></ul>'
+            template: '<ul class="tree"><object-editor ng-repeat="(k, v) in content track by $index" object-type="displayType" key="k" value="content"></object-editor></ul>'
         };
     })
 
